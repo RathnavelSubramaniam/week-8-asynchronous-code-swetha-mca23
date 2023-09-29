@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    const myarray=['https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=06287974eb479c833d4cba3cbba508c9',
+'https://api.openweathermap.org/data/2.5/weather?q=Houston&APPID=06287974eb479c833d4cba3cbba508c9',
+'https://api.openweathermap.org/data/2.5/weather?q=Lisbon&APPID=06287974eb479c833d4cba3cbba508c9',
+'https://api.openweathermap.org/data/2.5/weather?q=Baltimore&APPID=06287974eb479c833d4cba3cbba508c9']
+
+    const makerequest=async function(url){
+        let response=await fetch(url)
+        let data=await response.text()
+        //console.log(data)
+        return data
+    }
+    var dataArr=[]
+    myarray.forEach((item,k)=>{
+        makerequest(item).then((result)=>{
+            dataArr.push(result)
+            if (dataArr.length==4){
+                for(let i=0;i<4;i++){
+                    console.log(JSON.parse(dataArr[i]).name)
+            if (JSON.parse(dataArr[i]).name=="Lisbon"){
+                create(dataArr[i])
+            }        
+
+                }
+            }
+        })
+    })
+    function create(data){
+        let d=document.createElement("div")
+        d.innerHTML=data
+        d.style.border='4px solid blue'
+        d.style.width='1500px'
+        d.style.height='150px'
+        d.style.padding='10px'
+         d.style.margin='10px'
+        d.style.color='red'
+        d.style.fontSize='20px'
+        d.style.fontFamily='cursive'
+        d.style.borderRadius='10px'
+         d.style.boxShadow='0px 12px 15px rgba(0,0,0,0.3)'
+        document.body.appendChild(d)
+    }
+
+   
+
+
+    </script>
+
+
+</body>
+</html>
